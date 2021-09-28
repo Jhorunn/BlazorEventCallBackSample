@@ -1,0 +1,116 @@
+﻿@page  "/Page_EventCallBackSample"
+
+<h3  class="alert alert-secondary mt-4">Page_EventCallBackSample</h3>
+
+<div class="c-container">
+	<div class="flex-column justify-content-start w-50 mr-2">
+		<button class="btn btn-outline-primary" @onclick="GenerateRandomNumbers">
+			Generar
+		</button>
+		<hr />
+		<div class="c-numbers">
+			<p class="father">Números generados en el componente padre:</p>
+			@if (Numbers.Count > 0)
+			{
+				<p>
+					[
+					@foreach (var number in Numbers)
+					{
+						<span>@number</span> <span> </span>
+					}
+					]
+				</p>
+			}
+
+
+		</div>
+		<hr />
+		@if (showSumData.Count > 0)
+		{
+			<div class="c-numbers c-column green">
+				<p>Números generados en el componente Sumas</p>
+				@foreach (string item in showSumData)
+				{
+					<p>@item</p>
+				}
+				<hr />
+			</div>
+		}
+		@if (showSubData.Count > 0)
+		{
+			<div class="c-numbers c-column blue-green">
+				<p>Números generados en el componente Restas</p>
+				@foreach (string item in showSubData)
+				{
+					<p>@item</p>
+				}
+				<hr />
+			</div>
+		}
+		@if (showMulData.Count > 0)
+		{
+			<div class="c-numbers c-column yellow">
+				<p>Números generados en el componente Multiplicaciones</p>
+				@foreach (string item in showMulData)
+				{
+					<p>@item</p>
+				}
+				<hr />
+			</div>
+		}
+		@if (showDivData.Count > 0)
+		{
+			<div class="c-numbers c-column red">
+				<p>Números generados en el componente Divisiones</p>
+				@foreach (string item in showDivData)
+				{
+					<p>@item</p>
+				}
+				<hr />
+			</div>
+		}
+	</div>
+	<div class="flex-column justify-content-start w-50">
+		<Form_SumComponent Numbers="Numbers" OnGenerateRandomNumbers="ShowSumData"/>
+		<Form_SubComponent Numbers="Numbers" OnGenerateRandomNumbers="ShowSubData"/>
+		<Form_MulComponent Numbers="Numbers" OnGenerateRandomNumbers="ShowMulData"/>
+		<Form_DivComponent Numbers="Numbers" OnGenerateRandomNumbers="ShowDivData"/>
+	</div>
+</div>
+
+@code {
+	private List<int> Numbers { get; set; } = new List<int>();
+
+	private Random random = new Random();
+	public List<string> showSumData = new List<string>();
+	public List<string> showSubData = new List<string>();
+	public List<string> showMulData = new List<string>();
+	public List<string> showDivData = new List<string>();
+
+	private void GenerateRandomNumbers()
+	{
+		Numbers.Clear();
+		for (int i = 0; i < 6; i++)
+		{
+			Numbers.Add(random.Next(10, 100));
+		}
+	}
+
+	private void ShowSumData(OperationDetails operationDetails)
+	{
+		showSumData.Add(operationDetails.sNumberList);
+	}
+	private void ShowSubData(OperationDetails operationDetails)
+	{
+		showSubData.Add(operationDetails.sNumberList);
+	}
+	private void ShowMulData(OperationDetails operationDetails)
+	{
+		showMulData.Add(operationDetails.sNumberList);
+	}
+	private void ShowDivData(OperationDetails operationDetails)
+	{
+		showDivData.Add(operationDetails.sNumberList);
+	}
+
+}

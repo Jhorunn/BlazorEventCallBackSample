@@ -1,0 +1,58 @@
+﻿body {
+}
+
+.c-container {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: start;
+	border: 1px solid #Bbc7cb;
+	padding: 5px;
+	border-radius: 10px;
+}
+
+
+button {
+	margin-left: 30px;
+	margin-top: 10px;
+}
+
+hr {
+	margin: 10px 0 10px 0;
+	background-color: rgba(224,223,223,255);
+	opacity: 0.3;
+	width: 94%;
+	justify-self: center;
+	margin-left: 15px;
+}
+
+.c-numbers {
+	display: flex;
+	align-items: flex-start;
+	justify-content: flex-start;
+	color: rgba(37,142,255,255);
+	font-size: 15px;
+}
+
+	.c-numbers p {
+		margin-left: 15px;
+	}
+
+	.c-column{
+		flex-direction: column;
+	}
+
+.green{
+	color: mediumspringgreen;
+}
+
+.blue-green{
+	color: steelblue;
+}
+
+.yellow{
+	color:orange;
+}
+
+.red{
+	color: red;
+}

@@ -1,0 +1,66 @@
+﻿<div class="c-container">
+	<h4 class="c-tittle">Sum Sample</h4>
+	<hr />
+	<button class="btn btn-outline-primary" @onclick="GenerateAndCalculate">
+		Generar
+	</button>
+	<hr />
+	<div class="c-numbers">
+		<p>Números generados en el componente padre:</p>
+		@if (Numbers.Count > 0)
+		{
+			<p>
+				[
+				@foreach (int number in Numbers)
+				{
+					<span>@number</span> <span> </span>
+				}
+				<span> = @result </span>
+				]
+			</p>
+		}
+	</div>
+	<hr />
+	<div  class="c-numbers c-column">
+		@if (showResult.Count > 0)
+		{
+			foreach (string item in showResult)
+			{
+				<p>
+					@item
+				</p>
+			}
+		}
+	</div>
+</div>
+
+@code {
+
+	[Parameter] public List<int> Numbers { get; set; } = new List<int>();
+	[Parameter] public EventCallback<OperationDetails> OnGenerateRandomNumbers { get; set;}
+
+	public int result = 0;
+	public OperationDetails operationDetails = new OperationDetails() { NumberList = new List<int>(), sNumberList = ""};
+	private Random random = new Random();
+	public List<string> showResult = new List<string>();
+
+
+	protected override void OnParametersSet()
+	{
+		result = Numbers.Sum();
+	}
+
+	protected async Task GenerateAndCalculate()
+	{
+		operationDetails.NumberList.Clear();
+		operationDetails.sNumberList = "";
+		for (int i = 0; i < 3; i++)
+		{
+			operationDetails.NumberList.Add(random.Next(10, 100));
+		}
+		int result = operationDetails.NumberList.Sum();
+		operationDetails.sNumberList = $"[ {operationDetails.NumberList.ExtendToString()} = {result} ]";
+		showResult.Add(operationDetails.sNumberList);
+		await OnGenerateRandomNumbers.InvokeAsync(operationDetails);
+	}
+}
